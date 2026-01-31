@@ -1,12 +1,26 @@
 <?php
+require_once __DIR__ . "/../../models/User.php";
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
+}
+
+if (!isset($_SESSION['login']) && isset($_COOKIE['remember_me'])) {
+
+    $userId = $_COOKIE['remember_me'];
+    $user = User::find($userId);
+
+    if ($user) {
+        $_SESSION['login'] = true;
+        $_SESSION['user_id'] = $user['id'];
+        $_SESSION['username'] = $user['username'];
+    }
 }
 
 if (isset($_SESSION['login']) && $_SESSION['login'] === true) {
     header("Location: ../dashboard/index.php");
     exit;
 }
+
 
 require_once __DIR__ . '/../../config/config.php';
 ?>
@@ -62,7 +76,7 @@ require_once __DIR__ . '/../../config/config.php';
 
                 <div class="w-full flex items-center justify-between mt-8 text-gray-500/80">
                     <div class="flex items-center gap-2">
-                        <input class="h-5" type="checkbox" id="checkbox">
+                        <input class="h-5" type="checkbox" id="checkbox" name="remember">
                         <label class="text-sm" for="checkbox">Ingatkan saya</label>
                     </div>
                     <a class="text-sm underline" href="#">Lupa password?</a>

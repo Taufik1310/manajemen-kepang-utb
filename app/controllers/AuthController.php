@@ -9,7 +9,20 @@ if (isset($_POST['login'])) {
         $user = $result->fetch_assoc();
 
         $_SESSION['login'] = true;
+        $_SESSION['user_id'] = $user['id'];
         $_SESSION['username'] = $user['username'];
+
+        if (isset($_POST['remember'])) {
+            setcookie(
+                "remember_me",
+                $user['id'],
+                time() + (60 * 60 * 24 * 7),
+                "/",
+                "",
+                false,
+                true
+            );
+        }
 
         header("Location: ../../index.php");
         exit;
@@ -21,5 +34,7 @@ if (isset($_POST['login'])) {
 
 if (isset($_GET['logout'])) {
     session_destroy();
+    setcookie("remember_me", "", time() - 3600, "/");
     header("Location: ../views/auth/login.php");
+    exit;
 }
