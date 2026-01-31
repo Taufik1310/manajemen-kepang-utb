@@ -1,7 +1,6 @@
 <?php
 session_start();
 require_once "../models/Kegiatan.php";
-require_once "../libs/fpdf/fpdf.php";
 
 if (!isset($_SESSION['login'])) {
     header("Location: ../views/auth/login.php");
@@ -24,6 +23,7 @@ if (isset($_GET['hapus'])) {
 }
 
 if (isset($_GET['export']) && $_GET['export'] == 'pdf') {
+    require_once  __DIR__ . "/../libs/fpdf/fpdf.php";
 
     $data = Kegiatan::all();
 

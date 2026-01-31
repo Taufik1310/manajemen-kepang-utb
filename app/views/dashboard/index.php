@@ -15,7 +15,7 @@ include __DIR__ . "/../layout/header.php";
         <h1 class="text-4xl md:text-5xl md:leading-[60px] font-semibold max-w-xl bg-gradient-to-r from-white to-amber-100 text-transparent bg-clip-text">Wilujeng Sumping !</h1>
     </div>
 
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 w-full min-w-0">
         <?php
         $cards = [
             ['Anggota', $data['anggota']],
@@ -25,41 +25,74 @@ include __DIR__ . "/../layout/header.php";
         ];
         foreach ($cards as $card):
         ?>
-            <div class="bg-white p-4 rounded-lg shadow">
-                <p class="text-gray-500 text-sm">Total <?= $card[0] ?></p>
-                <p class="text-2xl font-bold"><?= $card[1] ?></p>
+            <div class="flex flex-col px-6 py-2 bg-white shadow rounded overflow-hidden">
+                <div class="flex flex-col items-center space-y-2">
+                    <div class="text-4xl font-bold tracking-tight leading-none text-amber-900"><?= $card[1] ?></div>
+                    <div class="text-lg font-medium text-gray-600">Total <?= $card[0] ?></div>
+                </div>
             </div>
         <?php endforeach ?>
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div class="bg-white p-5 rounded-lg shadow">
-            <h2 class="font-semibold mb-6">Kegiatan Terbaru</h2>
-            <ul class="space-y-3">
-                <?php while ($row = $data['kegiatanTerbaru']->fetch_assoc()): ?>
-                    <li class="border-b pb-2">
-                        <p class="font-medium"><?= $row['nama_kegiatan'] ?></p>
-                        <p class="text-sm text-gray-500">
-                            <?= $row['penanggung_jawab'] ?> • <?= $row['tanggal'] ?>
-                        </p>
-                    </li>
-                <?php endwhile ?>
-            </ul>
+        <div class="bg-white shadow rounded mb-4 p-4 sm:p-6 h-full">
+            <div class="flex items-center justify-between mb-4">
+                <h3 class="text-xl font-bold leading-none text-gray-900">Kegiatan Terbaru</h3>
+                <a href="<?= BASE_URL ?>app/views/kegiatan/index.php" class="text-sm font-medium text-amber-900 hover:bg-gray-100 rounded-lg inline-flex items-center p-2">
+                    Lihat Semua
+                </a>
+            </div>
+            <div class="flow-root">
+                <ul role="list" class="divide-y divide-gray-200">
+                    <?php while ($row = $data['kegiatanTerbaru']->fetch_assoc()): ?>
+                        <li class="py-3 sm:py-4">
+                            <div class="flex items-center space-x-4">
+                                <div class="flex-1 min-w-0">
+                                    <p class="text-sm font-medium text-gray-900 truncate">
+                                        <?= $row['nama_kegiatan'] ?>
+                                    </p>
+                                    <p class="text-sm text-gray-500 truncate">
+                                        Penanggung Jawab: <?= $row['penanggung_jawab'] ?>
+                                    </p>
+                                </div>
+                                <div class="inline-flex items-center text-sm font-semibold text-gray-900">
+                                    <?= $row['tanggal'] ?>
+                                </div>
+                            </div>
+                        </li>
+                    <?php endwhile ?>
+                </ul>
+            </div>
         </div>
-        <div class="bg-white p-5 rounded-lg shadow">
-            <h2 class="font-semibold mb-6">Jadwal Latihan Terdekat</h2>
-            <ul class="space-y-3">
-                <?php while ($row = $data['jadwalTerdekat']->fetch_assoc()): ?>
-                    <li class="border-b pb-2">
-                        <p class="font-medium">
-                            <?= $row['tanggal'] ?> • <?= $row['waktu'] ?> • <?= $row['tempat'] ?>
-                        </p>
-                        <p class="text-sm text-gray-500"><?= $row['nama_kegiatan'] ?></p>
-                    </li>
-                <?php endwhile ?>
-            </ul>
+        <div class="bg-white shadow rounded mb-4 p-4 sm:p-6 h-full">
+            <div class="flex items-center justify-between mb-4">
+                <h3 class="text-xl font-bold leading-none text-gray-900">Jadwal Latihan Terdekat</h3>
+                <a href="<?= BASE_URL ?>app/views/jadwal_latihan/index.php" class="text-sm font-medium text-amber-900 hover:bg-gray-100 rounded-lg inline-flex items-center p-2">
+                    Lihat Semua
+                </a>
+            </div>
+            <div class="flow-root">
+                <ul role="list" class="divide-y divide-gray-200">
+                    <?php while ($row = $data['jadwalTerdekat']->fetch_assoc()): ?>
+                        <li class="py-3 sm:py-4">
+                            <div class="flex items-center space-x-4">
+                                <div class="flex-1 min-w-0">
+                                    <p class="text-sm font-medium text-gray-900 truncate">
+                                        <?= $row['tanggal'] ?> • <?= $row['waktu'] ?>
+                                    </p>
+                                    <p class="text-sm text-gray-500 truncate">
+                                        <?= $row['nama_kegiatan'] ?>
+                                    </p>
+                                </div>
+                                <div class="inline-flex items-center text-sm font-semibold text-gray-900">
+                                    <?= $row['tempat'] ?>
+                                </div>
+                            </div>
+                        </li>
+                    <?php endwhile ?>
+                </ul>
+            </div>
         </div>
-
     </div>
 </div>
 

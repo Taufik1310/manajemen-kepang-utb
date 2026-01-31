@@ -9,7 +9,7 @@ if (!isset($_SESSION['login'])) {
 
 if (isset($_GET['export']) && $_GET['export'] === 'pdf') {
 
-    require_once "../libs/fpdf/fpdf.php";
+    require_once  __DIR__ . "/../libs/fpdf/fpdf.php";
 
     $data = Inventaris::all();
 

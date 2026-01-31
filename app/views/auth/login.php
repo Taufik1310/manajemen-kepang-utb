@@ -25,10 +25,10 @@ require_once __DIR__ . '/../../config/config.php';
 
 <body class="w-screen h-screen overflow-hidden">
     <div class="flex h-full w-full">
-        <div class="w-full hidden md:inline-block">
+        <div class="w-7/12 hidden lg:inline-block">
             <img class="h-full object-cover" src="https://kepang-utb.vercel.app/_next/image?url=%2Fassets%2Fimages%2Fgeneration%2Fangkatan_2024-2025.jpg&w=1920&q=75" alt="leftSideImage">
         </div>
-        <div class="w-full flex flex-col items-center justify-center">
+        <div class="lg:w-5/12 w-full flex flex-col items-center justify-center">
             <form action="<?= BASE_URL ?>app/controllers/AuthController.php" method="POST" class="md:w-96 w-80 flex flex-col items-center justify-center">
                 <h2 class="text-4xl text-gray-900 font-medium">Login</h2>
                 <p class="text-sm text-gray-500/90 mt-3">Wilujeng Sumping! Silahkan masuk untuk melanjutkan</p>
@@ -53,6 +53,13 @@ require_once __DIR__ . '/../../config/config.php';
                     <input type="password" name="password" placeholder="Password" class="bg-transparent text-gray-500/80 placeholder-gray-500/80 outline-none text-sm w-full h-full" required>
                 </div>
 
+                <?php if (isset($_GET['error']) && $_GET['error'] === 'invalid'): ?>
+                    <p class="w-full text-red-400 text-sm mt-2">
+                        Username atau Password salah!
+                    </p>
+                <?php endif; ?>
+
+
                 <div class="w-full flex items-center justify-between mt-8 text-gray-500/80">
                     <div class="flex items-center gap-2">
                         <input class="h-5" type="checkbox" id="checkbox">
@@ -68,7 +75,6 @@ require_once __DIR__ . '/../../config/config.php';
             </form>
         </div>
     </div>
-
 </body>
 
 </html>

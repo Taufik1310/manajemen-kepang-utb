@@ -23,16 +23,9 @@ if (isset($_GET['hapus'])) {
 }
 
 if (isset($_GET['export']) && $_GET['export'] == 'pdf') {
-    require_once "../libs/fpdf/fpdf.php";
-    require_once "../config/database.php";
+    require_once  __DIR__ . "/../libs/fpdf/fpdf.php";
 
-    $db = Database::connect();
-    $data = $db->query("
-        SELECT jl.*, k.nama_kegiatan
-        FROM jadwal_latihan jl
-        JOIN kegiatan k ON jl.kegiatan_id = k.id
-        ORDER BY jl.tanggal ASC
-    ");
+    $data = JadwalLatihan::all();
 
     $pdf = new FPDF('P', 'mm', 'A4');
     $pdf->AddPage();

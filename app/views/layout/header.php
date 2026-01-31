@@ -1,8 +1,6 @@
 <?php
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
 require_once __DIR__ . '/../../config/config.php';
+require_once __DIR__ . '/../../middlewares/auth.php';
 
 $username = $_SESSION['username'] ?? 'User';
 ?>
@@ -23,8 +21,8 @@ $username = $_SESSION['username'] ?? 'User';
     <div class="w-screen h-screen overflow-hidden flex justify-center">
         <?php include __DIR__ . '/sidebar.php'; ?>
         <div class="w-full md:w-10/12">
-            <nav class="h-20 relative w-full px-6 md:px-16 lg:px-24 xl:px-32 flex items-center justify-between z-20 bg-white text-gray-800 shadow-[0px_4px_25px_0px_#0000000D] transition-all">
-                <button id="sidebarToggle" type="button" class="inline-flex items-center p-2 mt-2 ml-3 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600">
+            <nav class="h-20 relative w-full px-4 md:px-16 lg:px-24 xl:px-32 flex items-center justify-between z-20 bg-white text-gray-800 shadow-[0px_4px_25px_0px_#0000000D] transition-all">
+                <button id="sidebarToggle" type="button" class="inline-flex items-center p-2 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600">
                     <span class="sr-only">Open sidebar</span>
                     <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                         <path clip-rule="evenodd" fill-rule="evenodd" d="M2 4.75A.75.75 0 012.75 4h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 4.75zm0 10.5a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5a.75.75 0 01-.75-.75zM2 10a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 10z"></path>
@@ -40,7 +38,7 @@ $username = $_SESSION['username'] ?? 'User';
                         </span>
                     </div>
                     <a href="<?= BASE_URL ?>app/controllers/AuthController.php?logout=true"
-                        class="flex border-2 border-amber-900 bg-transparent text-amber-900 px-4 py-2 rounded-full text-sm font-medium hover:bg-amber-900 hover:text-white transition">
+                        class="flex border-2 border-amber-900 bg-transparent text-amber-900 px-4 py-2 rounded-full text-xs font-medium hover:bg-amber-900 hover:text-white transition">
                         Logout
                     </a>
                 </div>
